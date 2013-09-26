@@ -4,7 +4,7 @@ ifeq ($(UNAME),Darwin)
 	OSXFUSE=4x
 endif
 
-LDFLAGS += -lfuse$(OSXFUSE)
+LDLIBS += -lfuse$(OSXFUSE)
 CFLAGS += -D_FILE_OFFSET_BITS=64
 
 all: hello
