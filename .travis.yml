@@ -3,6 +3,7 @@ language: cpp
 compiler: gcc
 
 install:
+  - sudo apt-get install -y libfuse-dev
   - make
 
 script:

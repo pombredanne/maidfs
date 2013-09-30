@@ -12,4 +12,4 @@ all: hello
 .PHONY: clean
 
 clean:
-	rm -f hello hello.o
+	rm -f hello *.o
