@@ -4,10 +4,11 @@ compiler: gcc
 
 install:
   - sudo apt-get install -y libfuse-dev
+  - sudo modprobe fuse
   - make
 
 script:
   - mkdir mp
-  - ./hello mp &
+  - ./hello mp
   - cat mp/hello
-
+  - fusermount -u mp
