@@ -4,7 +4,7 @@ compiler: gcc
 
 install:
   - sudo apt-get install -y libfuse-dev
-  - mknod /dev/fuse c 10 229
+  - sudo mknod /dev/fuse c 10 229
   - make
 
 script:
