@@ -7,5 +7,7 @@ install:
   - make
 
 script:
-  - echo "test"
+  - mkdir mp
+  - ./hello mp &
+  - cat mp/hello
 
