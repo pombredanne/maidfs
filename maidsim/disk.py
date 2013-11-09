@@ -14,7 +14,7 @@ class Disk:
     spin_down_timeout = None
 
 
-    def __init___(self, disk_model, timeout):
+    def __init__(self, disk_model, timeout):
         self.model = disk_model
         self.spin_down_timeout = timeout
 

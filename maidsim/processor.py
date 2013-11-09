@@ -48,5 +48,4 @@ class Processor:
 
     def get_energy_usage(self):
         # TODO: return the energy usage by the processor since it was created
-        pass
-    
+        return None    

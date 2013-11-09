@@ -8,3 +8,12 @@ class ProcessorModel:
     idle_power = None
     active_power = None
     speed = None
+
+    def __init__(self, idle_power, active_power, speed):
+        self.idle_power = idle_power
+        self.active_power = active_power
+        self.speed = speed
+
+
+xeonE52658v2 = ProcessorModel(14.4, 66.1, 2400000000)
+

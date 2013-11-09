@@ -11,9 +11,22 @@ class DiskArray:
     '''
 
 
-    def __init__(self):
-        # TODO: fill this in
-        pass
+    cache_disks = None
+    passive_disks = None
+
+
+    def __init__(self, num_cache_disks, cache_disk_model,
+                 num_passive_disks, passive_disk_model, spin_down_timeout):
+
+        # Create lists to hold the cache disks and passive disks
+        self.cache_disks = \
+            [Disk(cache_disk_model, float("inf")) \
+            for _ in range(num_cache_disks)]
+        self.passive_disks = \
+            [Disk(passive_disk_model, spin_down_timeout) \
+            for _ in range(num_passive_disks)]
+
+        # TODO: other initialization (set up metadata)
 
 
     def update_time(self, time):

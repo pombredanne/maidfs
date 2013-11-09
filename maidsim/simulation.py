@@ -20,18 +20,22 @@ class Simulation:
 
 
     trace = None
+    compression_alg = None
 
     # TODO: if someone can think of a better name than selection_alg, please use it
     selection_alg = None
 
-    compression_alg = None
     processor = None
     disk_array = None
 
 
-    def __init__(self, trace):
+    def __init__(self, trace, compression_alg, selection_alg, 
+                 processor_model, disk_array):
         self.trace = trace
-        # TODO: perform other initialization
+        self.compression_alg = compression_alg
+        self.selection_alg = selection_alg
+        self.processor = Processor(processor_model)
+        self.disk_array = disk_array
 
 
     def execute_trace(self):
@@ -73,7 +77,7 @@ class Simulation:
 
 
     def run(self):
-        # TODO: set up objects (if that's not already done in __init__)
+        # TODO: any set up that's not already done in __init__
 
         # Simulate the provided trace
         print "Starting trace execution"

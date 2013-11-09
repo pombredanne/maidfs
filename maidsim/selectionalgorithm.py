@@ -10,9 +10,17 @@ class SelectionAlgorithm:
 
     def should_compress(self, file_info):
         # Returns a boolean indicating if the file should be compressed or not.
-        return false
+        return False
 
 
 # TODO: implement the real selective compression algorithm (and any others we
 # want to use.  It probably needs to implement a threshold that determines
 # whether we want to compress a file based on compression ratio.
+
+class NoCompressionSelectionAlgorithm(SelectionAlgorithm):
+    '''
+    Most basic selection algorithm: don't compress anything.  This is actually
+    the same as the base SelectionAlgorithm.
+    '''
+
+
