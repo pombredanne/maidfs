@@ -1,31 +1,31 @@
 class DiskModel:
     '''
-    Describes a hard disk.  This class should only contain public data members.
+    Describes a disk (hard disk or SSD).  This class should only contain public
+    data members.
     '''
 
 
-    # TODO: this parameter list is not final
-    spin_up_time = None
-    spin_up_energy = None
-    spin_down_time = None
-    spin_down_energy = None
-    idle_power = None
-    read_power = None
-    write_power = None
-    speek = None
+    spin_up_time = None      # Seconds
+    spin_up_energy = None    # Joules
+    spin_down_energy = None  # Joules
+    idle_power = None        # Watts
+    read_power = None        # Watts
+    write_power = None       # Watts
+    speed = None             # bytes/sec
+    seek_time = None         # Seconds
 
 
-    def __init__(self, spin_up_time, spin_up_energy, spin_down_time,
-                 spin_down_energy, idle_power, read_power, write_power, speed):
+    def __init__(self, spin_up_time, spin_up_energy, spin_down_energy,
+                 idle_power, read_power, write_power, speed, seek_time):
         self.spin_up_time = spin_up_time
         self.spin_up_energy = spin_up_energy
-        self.spin_down_time = spin_down_time
         self.spin_down_energy = spin_down_energy
         self.idle_power = idle_power
         self.read_power = read_power
         self.write_power = write_power
         self.speed = speed
+        self.seek_time = seek_time
 
 
-fake_disk = DiskModel(1.2, 5, 0.5, 2, 0.1, 3, 5, 6)
+fake_disk = DiskModel(1.2, 5, 2, 0.1, 3, 5, 6, 0.0001)
 

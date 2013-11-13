@@ -9,6 +9,7 @@ from selectionalgorithm import *
 from simulation import Simulation
 from trace import Trace
 
+import traceback
 
 def main():
     '''
@@ -34,7 +35,7 @@ def main():
     disk_array = DiskArray(num_cache_disks, cache_disk_model,
                            num_passive_disks, passive_disk_model,
                            spin_down_timeout)
-    
+
     sim = Simulation(trace,
                      compression_alg,
                      selection_alg,
@@ -44,4 +45,8 @@ def main():
     sim.run()
 
 
-main()
+try:
+    main()
+except:
+    traceback.print_exc()
+    
