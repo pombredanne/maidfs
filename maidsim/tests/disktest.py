@@ -6,6 +6,7 @@ from disk import Disk
 from diskmodel import DiskModel
 from fileinfo import FileInfo
 from filetype import FileType
+import units
 
 import pdb
 import traceback
@@ -29,14 +30,14 @@ def disk_test():
         3,      # idle power
         7,      # read power
         8,      # write power
-        300000000,  # speed
+        300*units.MiB,  # speed
         0.003)   # seek time
     disk = Disk(test_disk, timeout)
 
-    file1 = FileInfo("file1", "/", FileType.TEXT, 1000000000)
-    file1_compressed_size = 300000000
-    file2 = FileInfo("file2", "/", FileType.BINARY, 40000000)
-    file2_compressed_size = 35000000
+    file1 = FileInfo("file1", "/", FileType.TEXT, 1*units.GiB)
+    file1_compressed_size = 300*units.MiB
+    file2 = FileInfo("file2", "/", FileType.BINARY, 40*units.MiB)
+    file2_compressed_size = 35*units.MiB
 
     # Tests
     passed = True
@@ -120,7 +121,7 @@ def disk_test():
 
 
     # Try to read something that doesn't exist
-    file3 = FileInfo("file1", "/newpath/", FileType.TEXT, 1000000000)
+    file3 = FileInfo("file1", "/newpath/", FileType.TEXT, 1*units.GiB)
     exception_occurred = False
     try:
         disk.read(file3)

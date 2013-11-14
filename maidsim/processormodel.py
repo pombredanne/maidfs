@@ -1,3 +1,5 @@
+import units
+
 class ProcessorModel:
     '''
     Describes the attributes of a processor.  This class should only have public
@@ -15,5 +17,4 @@ class ProcessorModel:
         self.speed = speed
 
 
-xeonE52658v2 = ProcessorModel(14.4, 66.1, 2400000000)
-
+xeonE52658v2 = ProcessorModel(14.4, 66.1, 2.4*units.GHz)
