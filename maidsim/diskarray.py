@@ -19,9 +19,15 @@ class DiskArray:
                  num_passive_disks, passive_disk_model, spin_down_timeout):
 
         # Create lists to hold the cache disks and passive disks
+        if num_cache_disks > 0:
+            # Cache disks are not implemented for now
+            raise NotImplementedError("Cache disks are currently not implemented.");
+        self.cache_disks = []
+        '''
         self.cache_disks = \
             [Disk(cache_disk_model, float("inf")) \
             for _ in range(num_cache_disks)]
+        '''
         self.passive_disks = \
             [Disk(passive_disk_model, spin_down_timeout) \
             for _ in range(num_passive_disks)]
@@ -29,11 +35,19 @@ class DiskArray:
         # TODO: other initialization (set up metadata)
 
 
+    def update_time_for_disks(self, disk_list, time):
+        # Update the time for the given list of disks
+        for theDisk in disk_list:
+            theDisk.update_time(time)
+
+
     def update_time(self, time):
-        # TODO: update the current time for all disks in the array
+        # Update time for the cache disks and passive disks
+        self.update_time_for_disks(self.cache_disks, time)
+        self.update_time_for_disks(self.passive_disks, time)
+
         # TODO: perform any other time related calculations (may be nothing
         # at this level).
-        pass
 
 
     def read(self, file_info):

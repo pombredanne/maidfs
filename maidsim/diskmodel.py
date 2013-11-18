@@ -13,10 +13,12 @@ class DiskModel:
     write_power = None       # Watts
     speed = None             # bytes/sec
     seek_time = None         # Seconds
+    capacity = None          # bytes
 
 
     def __init__(self, spin_up_time, spin_up_energy, spin_down_energy,
-                 idle_power, read_power, write_power, speed, seek_time):
+                 idle_power, read_power, write_power, speed, seek_time,
+                 capacity):
         self.spin_up_time = spin_up_time
         self.spin_up_energy = spin_up_energy
         self.spin_down_energy = spin_down_energy
@@ -25,7 +27,8 @@ class DiskModel:
         self.write_power = write_power
         self.speed = speed
         self.seek_time = seek_time
+        self.capacity = capacity
 
 
-fake_disk = DiskModel(1.2, 5, 2, 0.1, 3, 5, 6, 0.0001)
+fake_disk = DiskModel(1.2, 5, 2, 0.1, 3, 5, 6, 0.0001, 500000000000)
 
