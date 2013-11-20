@@ -31,7 +31,8 @@ def disk_test():
         7,      # read power
         8,      # write power
         300*units.MiB,  # speed
-        0.003)   # seek time
+        0.003,  # seek time
+        500*units.GiB)  # capacity
     disk = Disk(test_disk, timeout)
 
     file1 = FileInfo("file1", "/", FileType.TEXT, 1*units.GiB)

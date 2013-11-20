@@ -1,7 +1,6 @@
 class FileInfo:
     '''
-    Describes the basic attributes of a file.  This class should only contain
-    public data members.
+    Describes the basic attributes of a file.
     '''
 
 
@@ -17,3 +16,6 @@ class FileInfo:
         self.file_type = file_type
         self.size = size
 
+
+    def full_name(self):
+        return self.path + self.name

@@ -18,6 +18,7 @@ class Disk:
     energy_used = None    # Joules
     state = None
     current_time = None    # Seconds
+    last_activity_time = None    # The last time the disk was accessed
 
     # Dictionary to allow looking up compressed file sizes based on file names
     file_sizes = None
@@ -28,6 +29,7 @@ class Disk:
         self.spin_down_timeout = timeout
         self.energy_used = 0
         self.current_time = 0
+        self.last_activity_time = 0
         self.file_sizes = dict()
 
         # For now, assume all the disks are on at the start.  This setting
@@ -61,7 +63,8 @@ class Disk:
         # TODO: should maybe check if time is going backwards
 
         # Update the time
-        elapsed_time = time - self.current_time
+        time_since_activity = time - self.last_activity_time
+        time_since_last_update = time - self.current_time
         self.current_time = time
 
         # Figure out how long the drive was active and spin down if necessary
@@ -69,36 +72,36 @@ class Disk:
         if self.state == State.ON:
 
             # Check to see if we spun down since the last update
-            if elapsed_time >= self.spin_down_timeout:
+            if time_since_activity >= self.spin_down_timeout:
                 
-                # Note that we're ignoring cases were a request comes in while
-                # the drive is spinning down.
-                active_time = self.spin_down_timeout
+                # We've already accounted for the energy used before the last
+                # update.  We just need to consider the energy used between
+                # the last update and the timeout.
+                already_recorded = \
+                    time_since_activity - time_since_last_update
+                active_time = self.spin_down_timeout - already_recorded
                 self.power_off()
 
             else:
 
-                active_time = elapsed_time
+                active_time = time_since_last_update
 
         # Update the energy used
         self.energy_used += active_time * self.model.idle_power
 
 
-    def get_file_name(self, file_info):
-        # TODO: maybe should have some file path checking to detect different
-        # character strings that are the same path.
-        return file_info.path + file_info.name
-        
-
     def read(self, file_info):
         total_time = 0;
-    
+
+        # update_time must be called before any reads or writes to set the
+        # current time    
+        self.last_activity_time = self.current_time
+
         # Turn on the drive if necessary
         total_time += self.power_on()
 
         # Find the compressed size of the file
-        file_name = self.get_file_name(file_info);
-        compressed_size = self.file_sizes[file_name]
+        compressed_size = self.file_sizes[file_info.full_name()]
 
         # Calculate the time to read the file from disk
         read_time = self.model.seek_time + \
@@ -116,12 +119,15 @@ class Disk:
     def write(self, file_info, compressed_size):
         total_time = 0;
 
+        # update_time must be called before any reads or writes to set the
+        # current time    
+        self.last_activity_time = self.current_time
+
         # Turn on the drive if necessary
         total_time += self.power_on()
 
         # Store the size of the file
-        file_name = self.get_file_name(file_info);
-        self.file_sizes[file_name] = compressed_size
+        self.file_sizes[file_info.full_name()] = compressed_size
 
         # Calculate the time to write the file to disk
         write_time = self.model.seek_time + \
