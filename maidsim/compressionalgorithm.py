@@ -8,9 +8,9 @@ class CompressionAlgorithm:
 # exactly.  The compression speed and the processor speed will both need to be
 # taken into account when determining compression/decompression time.
 
-    # TODO: these may need to be arrays with entries for each file type
     compression_speed = None
-    compression_ratio = None
+    compression_ratio = None    # This should be a list with compression
+                                # ratios for each file type.
     decompression_speed = None
 
 
@@ -21,4 +21,4 @@ class CompressionAlgorithm:
         self.decompression_speed = decompression_speed
 
 
-fake_alg = CompressionAlgorithm(1000, 0.2, 2000)
+fake_alg = CompressionAlgorithm(1000, [0.2, 1.1, 1.0, 1.2, 1.2], 2000)

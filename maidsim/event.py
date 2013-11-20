@@ -18,3 +18,9 @@ class Event:
     file_info = None
     access_type = None
 
+
+    def __init__(self, time, file_info, access_type):
+        self.time = time
+        self.file_info = file_info
+        self.access_type = access_type
+
