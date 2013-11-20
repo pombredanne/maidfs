@@ -28,9 +28,9 @@ def main():
     processor_model = xeonE52658v2
 
     num_cache_disks = 0
-    cache_disk_model = fake_disk
+    cache_disk_model = siliconDriveA100ssd
     num_passive_disks = 100
-    passive_disk_model = fake_disk
+    passive_disk_model = savvio10k6hd
     spin_down_timeout = 512    # seconds
     disk_array = DiskArray(num_cache_disks, cache_disk_model,
                            num_passive_disks, passive_disk_model,

@@ -18,6 +18,9 @@ giga = 10**9
 tera = 10**12
 peta = 10**15
 
+milli = 10**-3
+micro = 10**-6
+
 KB = kilo
 MB = mega
 GB = giga
@@ -27,3 +30,6 @@ PB = peta
 KHz = kilo
 MHz = mega
 GHz = giga
+
+ms = milli
+us = micro
