@@ -22,3 +22,7 @@ class CompressionAlgorithm:
 
 
 fake_alg = CompressionAlgorithm(1000, [0.2, 1.1, 1.0, 1.2, 1.2], 2000)
+
+# based on preliminary results
+# NOTE: speed is in terms of bytes/sec
+gzip_alg = CompressionAlgorithm(19850796.84, [0.343789349, 0.895010754, 0.948683215, 0.99946001, 0.977854164], 127529527.2)

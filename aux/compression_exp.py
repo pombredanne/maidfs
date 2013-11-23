@@ -10,15 +10,18 @@ DECOMP_FILE_NAME = '/tmp/decompressed/'
 COMPRESSION_TYPES = (
     # command, suffix
     ('tar', 'tar.gz'),
-    ('tar', 'tar.bz2'),
-    ('7z', '7z'),
+    #('tar', 'tar.bz2'),
+    #('7z', '7z'),
 )
 
 # FIXME: This is for testing purposes only. Will replace with an environment
 # value or something configurable.
 FILES = (
     '/Users/sumin/Documents/compression-test/text',
+    '/Users/sumin/Documents/compression-test/binary',
+    '/Users/sumin/Documents/compression-test/image',
     '/Users/sumin/Documents/compression-test/video',
+    '/Users/sumin/Documents/compression-test/audio',
 )
 
 NULL_FILE = open(os.devnull, 'w')
