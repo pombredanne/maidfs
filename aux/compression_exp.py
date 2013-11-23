@@ -27,7 +27,7 @@ logger = logging.getLogger('compression_exp')
 handler = logging.StreamHandler(sys.stderr)
 handler.setFormatter(logging.Formatter('%(levelname)s %(message)s'))
 logger.addHandler(handler) 
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 
 class Profiler:
@@ -50,9 +50,11 @@ def get_file_size(file_name):
         return stats.st_size
 
     elif os.path.isdir(file_name):
+        logger.debug(file_name)
         # http://stackoverflow.com/questions/1392413/calculating-a-directory-size-using-python
-        return sum([os.path.getsize(f)
-            for f in os.listdir(file_name) if os.path.isfile(f)])
+        return sum([os.path.getsize(os.path.join(file_name, f))
+            for f in os.listdir(file_name)
+            if os.path.isfile(os.path.join(file_name, f))])
 
     else:
         raise Exception('Unsupported file type')
@@ -122,8 +124,9 @@ def measure(file_name, comp_type):
     logger.info('Decompressing {} with {}'.format(file_name, comp_type))
 
     decomp_cmd, fout = build_decomp_cmd(comp_util, file_name, suffix)
-
     decomp_time = time_cmd(decomp_cmd, fout)
+
+    logger.info(', '.join(map(str, [uncomp_file_size, comp_time, comp_file_size, decomp_time])))
 
     return uncomp_file_size, comp_time, comp_file_size, decomp_time
 
