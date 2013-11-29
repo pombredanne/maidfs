@@ -9,9 +9,9 @@ DECOMP_FILE_NAME = '/tmp/decompressed/'
 
 COMPRESSION_TYPES = (
     # command, suffix
-    ('tar', 'tar.gz'),
+    #('tar', 'tar.gz'),
     #('tar', 'tar.bz2'),
-    #('7z', '7z'),
+    ('7z', '7z'),
 )
 
 # FIXME: This is for testing purposes only. Will replace with an environment
@@ -106,9 +106,9 @@ def time_cmd(cmd=[], fout=NULL_FILE):
     return profiler.secs
 
 
-def cleanup():
-    os.unlink(COMP_FILE_NAME)
-    os.unlink(DECOMP_FILE_NAME)
+def cleanup(sffix):
+    os.unlink('{}.{}'.format(COMP_FILE_NAME, suffix))
+    os.unlink('{}.{}'.format(DECOMP_FILE_NAME, suffix))
 
 
 def measure(file_name, comp_type):
@@ -130,6 +130,8 @@ def measure(file_name, comp_type):
     decomp_time = time_cmd(decomp_cmd, fout)
 
     logger.info(', '.join(map(str, [uncomp_file_size, comp_time, comp_file_size, decomp_time])))
+
+    cleanup(suffix)
 
     return uncomp_file_size, comp_time, comp_file_size, decomp_time
 
