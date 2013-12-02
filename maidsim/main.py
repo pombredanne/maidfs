@@ -25,11 +25,7 @@ def main():
     DEFAULT_TRACE_FILE_NAME = "./trace"
     DEFAULT_SPIN_DOWN_TIMEOUT = 512 # seconds
     DEFAULT_COMPRESSION_THRESHOLD = 0.3 # compression ratio
-    NUM_COMPRESSION_ALGS = 1
-    COMPRESSION_ALGS = [ \
-        fake_alg
-        ]
-    DEFAULT_COMPRESSION_ALG = 1
+    DEFAULT_COMPRESSION_ALG = "g"
 
     # Generate a parser for the command line arguments
     parser = argparse.ArgumentParser()
@@ -42,10 +38,9 @@ def main():
                         default=DEFAULT_SPIN_DOWN_TIMEOUT,
                         metavar="SPIN_DOWN_TIMEOUT")
     parser.add_argument("-c", "--compression_alg",
-                        help="compression algorithm to use in the simulation",
+                        help="compression algorithm to use in the simulation (g = gzip, b = bzip2, 7 = 7z)",
                         default=DEFAULT_COMPRESSION_ALG,
-                        type=int,
-                        choices=range(1,(NUM_COMPRESSION_ALGS + 1)))
+                        choices=["g", "b", "7"])
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-n", "--none",
@@ -62,10 +57,17 @@ def main():
 
     # Parse the command line arguments
     args = parser.parse_args()
+
     trace_file_name = args.trace
     spin_down_timeout = args.timeout
-    compression_alg = COMPRESSION_ALGS[args.compression_alg - 1]
 
+    if args.compression_alg == "g":
+        compression_alg = gzip_alg
+    elif algs.compression_alg == "b":
+        compression_alg = bzip_alg
+    else:
+        compression_alg = _7z_alg
+        
     if args.none:
         selection_alg = NoCompressionSelectionAlgorithm()
     elif args.all:

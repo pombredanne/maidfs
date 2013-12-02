@@ -21,8 +21,6 @@ class CompressionAlgorithm:
         self.decompression_speed = decompression_speed
 
 
-fake_alg = CompressionAlgorithm(1000, [0.2, 1.1, 1.0, 1.2, 1.2], 2000)
-
 # based on preliminary results
 # NOTE: speed is in terms of bytes/sec
 gzip_alg = CompressionAlgorithm(23232955.36,
