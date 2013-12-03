@@ -59,9 +59,6 @@ class Disk:
         
 
     def update_time(self, time):
-
-        # TODO: should maybe check if time is going backwards
-
         # Update the time
         time_since_activity = time - self.last_activity_time
         time_since_last_update = time - self.current_time
