@@ -1,14 +1,5 @@
-
-
-from diskarray import DiskArray
-from compressionalgorithm import CompressionAlgorithm
-from event import Event
-from event import EventType
 from processor import CompressionResult
 from processor import Processor
-from processormodel import ProcessorModel
-from selectionalgorithm import SelectionAlgorithm
-from trace import Trace
 
 
 class Simulation:

@@ -1,9 +1,3 @@
-
-
-from compressionalgorithm import CompressionAlgorithm
-from processormodel import ProcessorModel
-
-
 class CompressionResult:
     '''
     Holds the results of a compression operation.  Only used as a return type.

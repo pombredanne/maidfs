@@ -1,10 +1,3 @@
-
-
-from event import Event
-from event import EventType
-from fileinfo import FileInfo
-
-
 class Trace:
     '''
     Represents a file system trace containing read and write events to a large
