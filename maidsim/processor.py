@@ -21,31 +21,49 @@ class Processor:
 
 
     model = None
+    energy_used = None
+    current_time = None
 
 
     def __init__(self, processor_model):
         self.model = processor_model
+        self.energy_used = 0
+        self.current_time = 0
 
 
-    def update_time(self, new_time):
-        # Updates the current time for the processor
-        # TODO: calculate idle energy usage since last event
-        pass
+    def update_time(self, time):
+        # Updates the current time for the processor and calculates idle
+        # energy usage since the last event
+        time_since_last_update = time - self.current_time
+        self.current_time = time
+        self.energy_used += time_since_last_update * self.model.idle_power
 
 
     def compress(self, file_info, compression_alg):
-        # TODO: calculate time and energy usage to compress the file
-        # TODO: calculate the new size of the file
-        # TODO: return a CompressonResult with the new size if the file and the
-        # time required for compression
-        return None
+        # Calculate time and energy required to compress the file.  Also
+        # calculate the size of the compressed file.
+        # Note that we're currently ignoring processor speed and assuming that
+        # the processor runs at the same speed as the processor that was used
+        # when testing compression speed.
+        results = CompressionResult()
+        results.execution_time = file_info.size / \
+                                 compression_alg.compression_speed
+        results.compressed_size = file_info.size * \
+                                  compression_alg.compression_ratio[
+                                      file_info.file_type]
+        self.energy_used += results.execution_time * self.model.active_power
+        return results
 
 
     def decompress(self, file_info, compression_alg):
-        # TODO: calculate time and energy usage to decompress the file
-        pass
+        # Calculate time and energy required to decompress the file.
+        # Note that we're currently ignoring processor speed and assuming that
+        # the processor runs at the same speed as the processor that was used
+        # when testing compression speed.
+        execution_time = file_info.size / compression_alg.decompression_speed
+        self.energy_used += execution_time * self.model.active_power
+        return execution_time
 
 
     def get_energy_usage(self):
-        # TODO: return the energy usage by the processor since it was created
-        return None    
+        return self.energy_used
