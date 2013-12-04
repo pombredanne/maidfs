@@ -2,6 +2,22 @@ from processor import CompressionResult
 from processor import Processor
 
 
+class SimulationResults:
+    '''
+    Utility class to hold the results from a run of the simulation
+    '''
+
+    # Performance metrics
+    total_read_time = None
+    read_count = None
+    total_write_time = None
+    write_count = None
+
+    # Energy metrics
+    processor_energy_usage = None
+    disk_energy_usage = None
+
+
 class Simulation:
     '''
     Master file that runs through a file system trace and simulates executing
@@ -83,11 +99,17 @@ class Simulation:
 
 
     def run(self):
-        # TODO: any set up that's not already done in __init__
-
         # Simulate the provided trace
         print "Starting trace execution"
         self.execute_trace()
         print "Trace execution complete"
 
-        # TODO: gather and report results
+        # Gather and report results
+        results = SimulationResults()
+        results.total_read_time = self.total_read_time
+        results.read_count = self.read_count
+        results.total_write_time = self.total_write_time
+        results.write_count = self.write_count
+        results.processor_energy_usage = self.processor.get_energy_usage()
+        results.disk_energy_usage = self.disk_array.get_energy_usage()
+        return results        

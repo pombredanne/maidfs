@@ -10,6 +10,7 @@ from simulation import Simulation
 from trace import Trace
 
 import argparse
+import os
 import traceback
 
 import pdb
@@ -17,7 +18,8 @@ import pdb
 def main():
     '''
     Main function: parses command line arguments, generates several objects,
-    and passes them all to the simulation.  Then runs the simulation.
+    and passes them all to the simulation.  Then runs the simulation and writes
+    the results to an output file.
     '''
 
 
@@ -26,6 +28,7 @@ def main():
     DEFAULT_SPIN_DOWN_TIMEOUT = 512 # seconds
     DEFAULT_COMPRESSION_THRESHOLD = 0.3 # compression ratio
     DEFAULT_COMPRESSION_ALG = "g"
+    DEFAULT_OUTPUT_FILE_NAME = "output.csv"
 
     # Generate a parser for the command line arguments
     parser = argparse.ArgumentParser()
@@ -55,26 +58,35 @@ def main():
                        type=float,
                        metavar="COMPRESSION_RATIO")
 
+    parser.add_argument("-o", "--output",
+                        help="output file name (results will be appended to this file)",
+                        default=DEFAULT_OUTPUT_FILE_NAME,
+                        metavar="OUTPUT_FILE")
+
     # Parse the command line arguments
     args = parser.parse_args()
 
     trace_file_name = args.trace
     spin_down_timeout = args.timeout
+    output_file_name = args.output
 
     if args.compression_alg == "g":
         compression_alg = gzip_alg
-    elif algs.compression_alg == "b":
+    elif args.compression_alg == "b":
         compression_alg = bzip_alg
     else:
-        compression_alg = _7z_alg
+        compression_alg = sevenz_alg
         
+    compression_threshold = 0
     if args.none:
         selection_alg = NoCompressionSelectionAlgorithm()
+        compression_threshold = 999    # stand in for infinity
     elif args.all:
         selection_alg = CompressEverythingSelectionAlgorithm()
     else:
+        compression_threshold = args.compression_ratio
         selection_alg = ThresholdCompressionAlgorithm(
-            args.compression_ratio,
+            compression_threshold,
             compression_alg)
 
     # The following parameters are hard coded
@@ -94,7 +106,75 @@ def main():
                      processor_model,
                      disk_array)
 
-    sim.run()
+    results = sim.run()
+
+    # Write the parameters and results to the output file.  The file is written
+    # in CSV format, which is easy to parse and can be read by many spreadsheet
+    # applications.
+
+    # Do some calculations up front
+    average_read_time = 0
+    if results.read_count > 0:
+        average_read_time = results.total_read_time / results.read_count
+
+    average_write_time = 0
+    if results.write_count > 0:
+        average_write_time = results.total_write_time / results.write_count
+
+    total_energy_usage = results.processor_energy_usage + \
+                         results.disk_energy_usage
+    
+    # Open (or create) the file for appending.
+    # Technically there is a bug here because the file might spontaneously
+    # spring into existence between the time it is checked and the time it is
+    # opened, but there's no need to worry about that for non-production code.
+    file_exists = os.path.exists(output_file_name)
+    output_file = open(output_file_name, 'a')
+
+    # Write out the header, if needed
+    if not file_exists:
+        output_file.write("trace_file_name,compression_algorithm,"
+                          "compression_threshold,spin_down_timeout,"
+                          "total_read_time,read_count,avg_read_time,"
+                          "total_write_time,write_count,avg_write_time,"
+                          "processor_energy_used,disk_energy_used,"
+                          "total_energy_used\n")
+
+    # Write out the input parameters
+    output_file.write(trace_file_name)
+    output_file.write(",")
+    output_file.write(compression_alg.name)
+    output_file.write(",")
+    output_file.write(str(compression_threshold))
+    output_file.write(",")
+    output_file.write(str(spin_down_timeout))
+    output_file.write(",")
+
+    # Write out the results
+    output_file.write(str(results.total_read_time))
+    output_file.write(",")
+    output_file.write(str(results.read_count))
+    output_file.write(",")
+    output_file.write(str(average_read_time))
+    output_file.write(",")
+    output_file.write(str(results.total_write_time))
+    output_file.write(",")
+    output_file.write(str(results.write_count))
+    output_file.write(",")
+    output_file.write(str(average_write_time))
+    output_file.write(",")
+    output_file.write(str(results.processor_energy_usage))
+    output_file.write(",")
+    output_file.write(str(results.disk_energy_usage))
+    output_file.write(",")
+    output_file.write(str(total_energy_usage))
+    output_file.write("\n")
+
+    # TODO: it might be nice to provide finer grained metrics: for example,
+    # energy used by reads vs write vs idle.
+
+    # Clean up
+    output_file.close()
 
 
 try:
