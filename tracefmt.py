@@ -18,27 +18,33 @@ cmd_du = "/usr/bin/du '{}' | awk '{{print $1}}'"
 cmd_file = "/usr/bin/file -Ib '{}'"
 
 traces = []
+cache = {}
 for f in open(sys.argv[1]).readlines():
-    syscall, path, count = f.split('\t')
+    try:
+        syscall, path, timestamp = f.split('\t')
 
-    if not os.path.exists(path) or not os.access(path, os.R_OK):
-        continue
+        if not os.path.exists(path) or not os.access(path, os.R_OK):
+            continue
 
-    child = subprocess.Popen(cmd_du.format(path),
-            shell=True, stdout=subprocess.PIPE)
-    num_bytes = child.stdout.readline().rstrip()
+        if path not in cache:
+            child = subprocess.Popen(cmd_du.format(path),
+                    shell=True, stdout=subprocess.PIPE)
+            num_bytes = child.stdout.readline().rstrip()
 
-    child = subprocess.Popen(cmd_file.format(path),
-            shell=True, stdout=subprocess.PIPE)
-    mimetype = child.stdout.readline().rstrip()
+            child = subprocess.Popen(cmd_file.format(path),
+                    shell=True, stdout=subprocess.PIPE)
+            mimetype = child.stdout.readline().rstrip()
+            cache[path] = {
+                'syscall': syscall,
+                'path': path,
+                'size_bytes': int(num_bytes),
+                'mimetype': mimetype
+            }
 
-    trace = {
-        'syscall': syscall,
-        'path': path,
-        'access_count': int(count),
-        'size_bytes': int(num_bytes),
-        'mimetype': mimetype
-    }
-    traces.append(trace)
+        trace = cache[path].copy()
+        trace['timestamp'] = int(timestamp)
+        traces.append(trace)
+    except:
+        pass
 
 print(json.dumps(traces))

@@ -1,7 +1,7 @@
 #!/usr/sbin/dtrace -s
 
 /*
-   Aggregates read(2) and write(2) calls for each unique pathname.
+   Dumps read(2) and write(2) calls for each unique pathname with timestamp.
    Field separator can be modified in the 'END' block.
 */
 
@@ -23,17 +23,11 @@ syscall::open*:return
 syscall::read*:entry
 /path[pid,arg0] != ""/
 {
-    @num["read", path[pid,arg0]] = count();
+    printf("read\t%s\t%u\n", path[pid,arg0], timestamp);
 }
 
 syscall::write*:entry
 /path[pid,arg0] != ""/
 {
-    @num["write", path[pid,arg0]] = count();
-}
-
-END
-{
-    /* print as tab-delimited fields */
-    printa("%s\t%s\t%@8u\n", @num);
+    printf("write\t%s\t%u\n", path[pid,arg0], timestamp);
 }
