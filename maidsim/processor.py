@@ -41,7 +41,8 @@ class Processor:
         # when testing compression speed.
         results = CompressionResult()
         results.execution_time = file_info.size / \
-                                 compression_alg.compression_speed
+                                 compression_alg.compression_speed[
+                                      file_info.file_type]
         results.compressed_size = file_info.size * \
                                   compression_alg.compression_ratio[
                                       file_info.file_type]
@@ -54,7 +55,8 @@ class Processor:
         # Note that we're currently ignoring processor speed and assuming that
         # the processor runs at the same speed as the processor that was used
         # when testing compression speed.
-        execution_time = file_info.size / compression_alg.decompression_speed
+        execution_time = file_info.size / compression_alg.decompression_speed[
+                                      file_info.file_type]
         self.energy_used += execution_time * self.model.active_power
         return execution_time
 
