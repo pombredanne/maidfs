@@ -1,3 +1,4 @@
+from event import EventType
 from processor import CompressionResult
 from processor import Processor
 
@@ -52,6 +53,28 @@ class Simulation:
         self.write_count = 0
 
 
+    def read(self, do_compress, file_info):
+        # Read a file from the disk array
+        read_time = self.disk_array.read(file_info)
+        if do_compress:
+            read_time += \
+                self.processor.decompress(file_info,
+                                          self.compression_alg)
+        return read_time
+
+
+    def write(self, do_compress, file_info):
+        # Write a file to the disk array
+        compression_result = CompressionResult()
+        if do_compress:
+            compression_result = self.processor.compress(
+                event.file_info, compression_alg)
+        write_time = compression_result.execution_time
+        write_time += self.disk_array.write(
+            event.file_info, compression_result.compressed_size)
+        return write_time
+
+
     def execute_trace(self):
 
         while self.trace.more_events():
@@ -72,25 +95,15 @@ class Simulation:
             self.disk_array.update_time(event.time)
 
             # Determine if this file should be compressed
-            do_compress = self.selection_alg.should_compress(event.file)
+            do_compress = self.selection_alg.should_compress(event.file_info)
 
             # Compress and write or read and decompress the file
             if event.access_type is EventType.READ:
-                read_time = self.disk_array.read(event.file)
-                if do_compress:
-                    read_time += \
-                        self.processor.decompress(event.file, compression_alg)
+                self.read(do_compress, event.file_info)
                 self.total_read_time += read_time
                 self.read_count += 1
             else:
-                size = event.file.size
-                compression_result = CompressionResult()
-                if do_compress:
-                    compression_result = self.processor.compress(
-                        event.file, compression_alg)
-                write_time = compression_result.execution_time
-                write_time += self.disk_array.write(
-                    event.file, compression_result.compressed_size)
+                self.write(do_compress, event.file_info)
                 self.total_write_time += write_time
                 self.write_count += 1
 

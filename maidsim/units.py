@@ -20,6 +20,7 @@ peta = 10**15
 
 milli = 10**-3
 micro = 10**-6
+nano  = 10**-9
 
 KB = kilo
 MB = mega
@@ -33,3 +34,4 @@ GHz = giga
 
 ms = milli
 us = micro
+ns = nano
