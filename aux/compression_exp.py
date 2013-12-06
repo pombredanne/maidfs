@@ -106,9 +106,11 @@ def time_cmd(cmd=[], fout=NULL_FILE):
     return profiler.secs
 
 
-def cleanup(sffix):
+def cleanup(suffix):
     os.unlink('{}.{}'.format(COMP_FILE_NAME, suffix))
-    os.unlink('{}.{}'.format(DECOMP_FILE_NAME, suffix))
+    
+    if os.path.exists(DECOMP_FILE_NAME):
+        os.removedirs(DECOMP_FILE_NAME)
 
 
 def measure(file_name, comp_type):
