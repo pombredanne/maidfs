@@ -75,7 +75,7 @@ def main():
     elif args.compression_alg == "b":
         compression_alg = bzip_alg
     else:
-        compression_alg = _7z_alg
+        compression_alg = sevenz_alg
         
     compression_threshold = 0
     if args.none:
