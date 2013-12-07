@@ -92,3 +92,15 @@ class DiskArray:
         return self.get_energy_usage_for_disks(self.cache_disks) + \
                self.get_energy_usage_for_disks(self.passive_disks)
 
+
+    def reset_energy_usage_for_disks(self, disk_list):
+        # Reset the energy usage for the given list of disks
+        for the_disk in disk_list:
+            the_disk.reset_energy_usage()
+
+
+    def reset_energy_usage(self):
+        # Reset the energy usage for all the disks
+        self.reset_energy_usage_for_disks(self.cache_disks)
+        self.reset_energy_usage_for_disks(self.passive_disks)
+

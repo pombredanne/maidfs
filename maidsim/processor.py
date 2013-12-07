@@ -63,3 +63,8 @@ class Processor:
 
     def get_energy_usage(self):
         return self.energy_used
+
+
+    def reset_energy_usage(self):
+        self.energy_used = 0
+

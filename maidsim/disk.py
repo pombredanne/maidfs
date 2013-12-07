@@ -141,3 +141,12 @@ class Disk:
 
     def get_energy_usage(self):
         return self.energy_used
+
+
+    def reset_energy_usage(self):
+        # Reset the energy usage, stored times, and disk state
+        self.energy_used = 0
+        self.current_time = 0
+        self.last_activity_time = 0
+        self.state = State.ON
+

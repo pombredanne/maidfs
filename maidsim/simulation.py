@@ -68,12 +68,27 @@ class Simulation:
         compression_result = CompressionResult()
         if do_compress:
             compression_result = self.processor.compress(
-                event.file_info, compression_alg)
+                file_info, compression_alg)
         write_time = compression_result.execution_time
         write_time += self.disk_array.write(
-            event.file_info, compression_result.compressed_size)
+            file_info, compression_result.compressed_size)
         return write_time
 
+
+    def prepare_array(self):
+        # This procedure ensures that any file that will be read during the
+        # simulation already exists in the array
+        while self.trace.more_events():
+
+            # Get the next event
+            event = self.trace.next_event()
+
+            # If this file will be read during the simulation, write it to
+            # the array
+            if event.access_type is EventType.READ:
+                do_compress = self.selection_alg.should_compress(event.file_info)
+                self.write(do_compress, event.file_info)
+            
 
     def execute_trace(self):
 
@@ -99,19 +114,24 @@ class Simulation:
 
             # Compress and write or read and decompress the file
             if event.access_type is EventType.READ:
-                self.read(do_compress, event.file_info)
+                read_time = self.read(do_compress, event.file_info)
                 self.total_read_time += read_time
                 self.read_count += 1
             else:
-                self.write(do_compress, event.file_info)
+                write_time = self.write(do_compress, event.file_info)
                 self.total_write_time += write_time
                 self.write_count += 1
 
-        # Clean up
-        self.trace.close()
-
 
     def run(self):
+        # Prepare the disk array
+        self.prepare_array()
+
+        # Reset the trace and the energy usage for the array and processor
+        self.trace.reset()
+        self.processor.reset_energy_usage()
+        self.disk_array.reset_energy_usage()
+
         # Simulate the provided trace
         print "Starting trace execution"
         self.execute_trace()

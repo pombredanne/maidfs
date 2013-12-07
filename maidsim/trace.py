@@ -97,7 +97,6 @@ class Trace:
         return len(self.event_list) > self.current_event
 
 
-    def close(self):
-        # Nothing is required here since the file is only accessed in the
-        # __init__ function.
-        pass
+    def reset(self):
+        # Start the trace again at the beginning
+        self.current_event = 0
