@@ -150,3 +150,10 @@ class Disk:
         self.last_activity_time = 0
         self.state = State.ON
 
+
+    def get_capacity_usage(self):
+        # Return the total amount of disk space used on this disk
+        total_capacity = 0
+        for size in self.file_sizes.itervalues():
+            total_capacity += size
+        return total_capacity

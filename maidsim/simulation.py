@@ -18,6 +18,9 @@ class SimulationResults:
     processor_energy_usage = None
     disk_energy_usage = None
 
+    # Capacity metrics
+    total_capacity_usage = None
+
 
 class Simulation:
     '''
@@ -145,4 +148,5 @@ class Simulation:
         results.write_count = self.write_count
         results.processor_energy_usage = self.processor.get_energy_usage()
         results.disk_energy_usage = self.disk_array.get_energy_usage()
+        results.total_capacity_usage = self.disk_array.get_capacity_usage()
         return results        

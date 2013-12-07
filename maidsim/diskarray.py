@@ -104,3 +104,17 @@ class DiskArray:
         self.reset_energy_usage_for_disks(self.cache_disks)
         self.reset_energy_usage_for_disks(self.passive_disks)
 
+
+    def get_capacity_usage_for_disks(self, disk_list):
+        # Sum up the capacity usage for the given list of disks
+        total_capacity = 0
+        for the_disk in disk_list:
+            total_capacity += the_disk.get_capacity_usage()
+        return total_capacity
+
+
+    def get_capacity_usage(self):
+        # Return the total capacity used on all disks in the array
+        return self.get_capacity_usage_for_disks(self.cache_disks) + \
+               self.get_capacity_usage_for_disks(self.passive_disks)
+        

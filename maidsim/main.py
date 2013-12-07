@@ -168,6 +168,8 @@ def main():
     output_file.write(str(results.disk_energy_usage))
     output_file.write(",")
     output_file.write(str(total_energy_usage))
+    output_file.write(",")
+    output_file.write(str(results.total_capacity_usage))
     output_file.write("\n")
 
     # TODO: it might be nice to provide finer grained metrics: for example,
