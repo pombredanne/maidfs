@@ -26,6 +26,7 @@ class Trace:
     current_event = 0
     first_event_timestamp = 0
     types = None
+    error = False
 
 
     def __init__(self, file_name):
@@ -48,6 +49,25 @@ class Trace:
         # Set up a correspondence between mimetypes and file types
         self.types = dict()
         self.types["image/png"] = FileType.IMAGE
+        self.types["application/xml"] = FileType.TEXT
+        self.types["application/x-character-device"] = FileType.BINARY
+        self.types["application/octet-stream"] = FileType.BINARY
+        self.types["text/plain"] = FileType.TEXT
+        self.types["application/x-directory"] = FileType.BINARY
+        self.types["text/x-shellscript"] = FileType.TEXT
+        self.types["text/html"] = FileType.TEXT
+        self.types["application/x-empty"] = FileType.BINARY
+        self.types["text/x-c"] = FileType.TEXT
+        self.types["application/x-gzip"] = FileType.BINARY
+        self.types["text/x-java"] = FileType.TEXT
+        self.types["image/x-ico"] = FileType.IMAGE
+        self.types["application/x-fifo"] = FileType.BINARY
+        self.types["text/x-c++"] = FileType.TEXT
+        self.types["image/gif"] = FileType.IMAGE
+        self.types["image/jpeg"] = FileType.IMAGE
+
+        # TODO: this "mimetype" shows up for a few json files in the trace
+        self.types["ERROR: line 22: regexec error 17, (illegal byte sequence)"] = FileType.TEXT
 
 
     def next_event(self):
@@ -62,7 +82,7 @@ class Trace:
 
         # Update the timestamp so that the first event happens at time zero
         time -= self.first_event_timestamp
-        time /= units.ns
+        time *= units.ns
 
         access_type_string = event["syscall"]
         if access_type_string == "read":
@@ -76,17 +96,21 @@ class Trace:
         file_path = ""
         file_size = event["size_bytes"]
 
-        # Convert mimetype to file type
+        # Convert mimetype to file type.  We only use the first part of the
+        # mimetype (the part before the ";").
 	mimetype = event["mimetype"]
+        simple_type_index = mimetype.index(";")
+        simple_type = mimetype[0:simple_type_index]
 
-        # If a mimetype hasn't been assigned to a file type yet, print out
-        # a message instead of throwing an exception.  This allows us to
-        # discover more than one missing type in a single run.
+        # If a mimetype hasn't been assigned to a file type yet, print a
+        # message instead of throwing an exception.  This allows us to detect
+        # multiple missing mimetypes on a single run.
         try:
-            file_type = self.types[mimetype]
+            file_type = self.types[simple_type]
         except KeyError:
-            print "Unknown mimetype: " + mimetype
+            print "Unknown mimetype: " + simple_type
             file_type = FileType.BINARY
+            self.error = True
 
         file_info = FileInfo(file_name, file_path, file_type, file_size)
 
@@ -100,3 +124,6 @@ class Trace:
     def reset(self):
         # Start the trace again at the beginning
         self.current_event = 0
+
+    def error_occurred(self):
+        return self.error

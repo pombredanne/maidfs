@@ -12,6 +12,11 @@ class Disk:
     of files, calculates time required, and keeps track of energy used.
     '''
 
+    # The starting state for all the disks.  Starting with all the disks off
+    # should significantly reduce energy consumption while slightly
+    # decreasing performance.
+    DEFAULT_STATE = State.OFF
+
 
     model = None
     spin_down_timeout = None    # Seconds
@@ -31,10 +36,7 @@ class Disk:
         self.current_time = 0
         self.last_activity_time = 0
         self.file_sizes = dict()
-
-        # For now, assume all the disks are on at the start.  This setting
-        # really doesn't matter as long as we are consistent across all tests.
-        self.state = State.ON
+        self.state = self.DEFAULT_STATE
 
 
     def power_on(self):
@@ -148,7 +150,7 @@ class Disk:
         self.energy_used = 0
         self.current_time = 0
         self.last_activity_time = 0
-        self.state = State.ON
+        self.state = self.DEFAULT_STATE
 
 
     def get_capacity_usage(self):

@@ -138,7 +138,8 @@ def main():
                           "total_read_time,read_count,avg_read_time,"
                           "total_write_time,write_count,avg_write_time,"
                           "processor_energy_used,disk_energy_used,"
-                          "total_energy_used\n")
+                          "total_energy_used,total_capacity_used,"
+                          "parse_error_occurred\n")
 
     # Write out the input parameters
     output_file.write(trace_file_name)
@@ -170,10 +171,13 @@ def main():
     output_file.write(str(total_energy_usage))
     output_file.write(",")
     output_file.write(str(results.total_capacity_usage))
+    output_file.write(",")
+    output_file.write(str(results.parse_error_occurred))
     output_file.write("\n")
 
     # TODO: it might be nice to provide finer grained metrics: for example,
-    # energy used by reads vs write vs idle.
+    # energy used by reads vs write vs idle and separate out procesor time
+    # from disk time for reads and writes.
 
     # Clean up
     output_file.close()

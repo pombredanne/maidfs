@@ -21,6 +21,9 @@ class SimulationResults:
     # Capacity metrics
     total_capacity_usage = None
 
+    # Error handling metrics
+    parse_error_occurred = None
+
 
 class Simulation:
     '''
@@ -69,12 +72,13 @@ class Simulation:
     def write(self, do_compress, file_info):
         # Write a file to the disk array
         compression_result = CompressionResult()
+        size = file_info.size
         if do_compress:
             compression_result = self.processor.compress(
-                file_info, compression_alg)
+                file_info, self.compression_alg)
+            size = compression_result.compressed_size
         write_time = compression_result.execution_time
-        write_time += self.disk_array.write(
-            file_info, compression_result.compressed_size)
+        write_time += self.disk_array.write(file_info, size)
         return write_time
 
 
@@ -149,4 +153,5 @@ class Simulation:
         results.processor_energy_usage = self.processor.get_energy_usage()
         results.disk_energy_usage = self.disk_array.get_energy_usage()
         results.total_capacity_usage = self.disk_array.get_capacity_usage()
+        results.parse_error_occurred = self.trace.error_occurred()
         return results        
