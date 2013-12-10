@@ -25,7 +25,7 @@ def main():
 
     # Set some defaults in case command line arguments are not supplied
     DEFAULT_TRACE_FILE_NAME = "./trace"
-    DEFAULT_SPIN_DOWN_TIMEOUT = 512 # seconds
+    DEFAULT_SPIN_DOWN_TIMEOUT = float("inf") # seconds
     DEFAULT_COMPRESSION_THRESHOLD = 0.3 # compression ratio
     DEFAULT_COMPRESSION_ALG = "g"
     DEFAULT_OUTPUT_FILE_NAME = "output.csv"

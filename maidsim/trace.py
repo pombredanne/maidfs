@@ -22,6 +22,8 @@ class Trace:
     '''
 
 
+    SPEEDUP_FACTOR = 100
+
     event_list = None
     current_event = 0
     first_event_timestamp = 0
@@ -66,7 +68,7 @@ class Trace:
         self.types["image/gif"] = FileType.IMAGE
         self.types["image/jpeg"] = FileType.IMAGE
 
-        # TODO: this "mimetype" shows up for a few json files in the trace
+        # This "mimetype" shows up for a few json files in the trace
         self.types["ERROR: line 22: regexec error 17, (illegal byte sequence)"] = FileType.TEXT
 
 
@@ -83,6 +85,9 @@ class Trace:
         # Update the timestamp so that the first event happens at time zero
         time -= self.first_event_timestamp
         time *= units.ns
+
+        # Divide the time by a speedup factor to simulate higher load
+        time /= self.SPEEDUP_FACTOR
 
         access_type_string = event["syscall"]
         if access_type_string == "read":

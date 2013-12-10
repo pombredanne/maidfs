@@ -12,10 +12,9 @@ class Disk:
     of files, calculates time required, and keeps track of energy used.
     '''
 
-    # The starting state for all the disks.  Starting with all the disks off
-    # should significantly reduce energy consumption while slightly
-    # decreasing performance.
-    DEFAULT_STATE = State.OFF
+    # The starting state for all the disks.  Not really relevant as long as
+    # it's consistent across runs.
+    DEFAULT_STATE = State.ON
 
 
     model = None
