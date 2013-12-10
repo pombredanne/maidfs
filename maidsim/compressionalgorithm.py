@@ -5,9 +5,10 @@ class CompressionAlgorithm:
     '''
 
     name = None
+
+    # These should be lists with entries for each file type
     compression_speed = None
-    compression_ratio = None    # This should be a list with compression
-                                # ratios for each file type.
+    compression_ratio = None
     decompression_speed = None
 
 
@@ -37,12 +38,52 @@ sevenz_alg = CompressionAlgorithm("7z",
         [51361797.37, 16019330.43, 16425116.54, 16635157.38, 16863513.64])
 
 # Some hypothetical algorithms
-faster_alg = CompressionAlgorithm("faster",
+faster1_alg = CompressionAlgorithm("faster1",
+        map(lambda x: x*1.5, gzip_alg.compression_speed),
+        [0.377656117, 0.999549344, 0.992642428, 0.990812813, 0.977854524],
+        map(lambda x: x*1.5, gzip_alg.decompression_speed))
+
+faster2_alg = CompressionAlgorithm("faster2",
         map(lambda x: x*2, gzip_alg.compression_speed),
         [0.377656117, 0.999549344, 0.992642428, 0.990812813, 0.977854524],
         map(lambda x: x*2, gzip_alg.decompression_speed))
 
-greater_alg = CompressionAlgorithm("greater",
+faster3_alg = CompressionAlgorithm("faster3",
+        map(lambda x: x*3, gzip_alg.compression_speed),
+        [0.377656117, 0.999549344, 0.992642428, 0.990812813, 0.977854524],
+        map(lambda x: x*3, gzip_alg.decompression_speed))
+
+faster4_alg = CompressionAlgorithm("faster4",
+        map(lambda x: x*4, gzip_alg.compression_speed),
+        [0.377656117, 0.999549344, 0.992642428, 0.990812813, 0.977854524],
+        map(lambda x: x*4, gzip_alg.decompression_speed))
+
+faster5_alg = CompressionAlgorithm("faster5",
+        map(lambda x: x*5, gzip_alg.compression_speed),
+        [0.377656117, 0.999549344, 0.992642428, 0.990812813, 0.977854524],
+        map(lambda x: x*5, gzip_alg.decompression_speed))
+
+greater1_alg = CompressionAlgorithm("greater1",
+        [10423524.87, 30876888.42, 23397576.69, 24574384.64, 26892402.2],
+        map(lambda x: x/1.5, gzip_alg.compression_ratio),
+        [53887065.59, 95981239.82, 36033727.06, 92784830.08, 50620584.68])
+
+greater2_alg = CompressionAlgorithm("greater2",
         [10423524.87, 30876888.42, 23397576.69, 24574384.64, 26892402.2],
         map(lambda x: x/2, gzip_alg.compression_ratio),
+        [53887065.59, 95981239.82, 36033727.06, 92784830.08, 50620584.68])
+
+greater3_alg = CompressionAlgorithm("greater3",
+        [10423524.87, 30876888.42, 23397576.69, 24574384.64, 26892402.2],
+        map(lambda x: x/3, gzip_alg.compression_ratio),
+        [53887065.59, 95981239.82, 36033727.06, 92784830.08, 50620584.68])
+
+greater4_alg = CompressionAlgorithm("greater4",
+        [10423524.87, 30876888.42, 23397576.69, 24574384.64, 26892402.2],
+        map(lambda x: x/4, gzip_alg.compression_ratio),
+        [53887065.59, 95981239.82, 36033727.06, 92784830.08, 50620584.68])
+
+greater5_alg = CompressionAlgorithm("greater5",
+        [10423524.87, 30876888.42, 23397576.69, 24574384.64, 26892402.2],
+        map(lambda x: x/5, gzip_alg.compression_ratio),
         [53887065.59, 95981239.82, 36033727.06, 92784830.08, 50620584.68])
