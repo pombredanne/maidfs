@@ -1,5 +1,3 @@
-#!/usr/bin/python2
-
 from __future__ import division
 
 from compressionalgorithm import *
@@ -14,7 +12,6 @@ import argparse
 import os
 import traceback
 
-import pdb
 
 def main():
     '''
@@ -23,11 +20,10 @@ def main():
     the results to an output file.
     '''
 
-
     # Set some defaults in case command line arguments are not supplied
     DEFAULT_TRACE_FILE_NAME = "./trace"
-    DEFAULT_SPIN_DOWN_TIMEOUT = float("inf") # seconds
-    DEFAULT_COMPRESSION_THRESHOLD = 0.3 # compression ratio
+    DEFAULT_SPIN_DOWN_TIMEOUT = float("inf")    # seconds
+    DEFAULT_COMPRESSION_THRESHOLD = 0.3         # compression ratio
     DEFAULT_COMPRESSION_ALG = "g"
     DEFAULT_OUTPUT_FILE_NAME = "output.csv"
 
@@ -129,7 +125,7 @@ def main():
         compression_alg = greater4_alg
     elif args.compression_alg == "g5":
         compression_alg = greater5_alg
-        
+
     if args.none:
         selection_alg = NoCompressionSelectionAlgorithm()
         compression_threshold = 0
@@ -175,8 +171,8 @@ def main():
         average_write_time = results.total_write_time / results.write_count
 
     total_energy_usage = results.processor_energy_usage + \
-                         results.disk_energy_usage
-    
+        results.disk_energy_usage
+
     # Open (or create) the file for appending.
     # Technically there is a bug here because the file might spontaneously
     # spring into existence between the time it is checked and the time it is
@@ -242,4 +238,3 @@ except SystemExit:
     pass
 except:
     traceback.print_exc()
-    

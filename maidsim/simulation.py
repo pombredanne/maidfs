@@ -34,7 +34,6 @@ class Simulation:
     to a provided algorithm.
     '''
 
-
     trace = None
     compression_alg = None
     selection_alg = None
@@ -46,8 +45,7 @@ class Simulation:
     total_write_time = None
     write_count = None
 
-
-    def __init__(self, trace, compression_alg, selection_alg, 
+    def __init__(self, trace, compression_alg, selection_alg,
                  processor_model, disk_array):
         self.trace = trace
         self.compression_alg = compression_alg
@@ -60,7 +58,6 @@ class Simulation:
         self.total_write_time = 0
         self.write_count = 0
 
-
     def read(self, do_compress, file_info):
         # Read a file from the disk array
         read_time = self.disk_array.read(file_info)
@@ -69,7 +66,6 @@ class Simulation:
                 self.processor.decompress(file_info,
                                           self.compression_alg)
         return read_time
-
 
     def write(self, do_compress, file_info):
         # Write a file to the disk array
@@ -83,7 +79,6 @@ class Simulation:
         write_time += self.disk_array.write(file_info, size)
         return write_time
 
-
     def prepare_array(self):
         # This procedure ensures that any file that will be read during the
         # simulation already exists in the array
@@ -95,9 +90,9 @@ class Simulation:
             # If this file will be read during the simulation, write it to
             # the array
             if event.access_type is EventType.READ:
-                do_compress = self.selection_alg.should_compress(event.file_info)
+                do_compress = \
+                    self.selection_alg.should_compress(event.file_info)
                 self.write(do_compress, event.file_info)
-            
 
     def execute_trace(self):
 
@@ -131,7 +126,6 @@ class Simulation:
                 self.total_write_time += write_time
                 self.write_count += 1
 
-
     def run(self):
         # Prepare the disk array
         self.prepare_array()
@@ -156,4 +150,4 @@ class Simulation:
         results.disk_energy_usage = self.disk_array.get_energy_usage()
         results.total_capacity_usage = self.disk_array.get_capacity_usage()
         results.parse_error_occurred = self.trace.error_occurred()
-        return results        
+        return results

@@ -1,5 +1,6 @@
 from __future__ import division
 
+
 class State:
     '''
     Enum defining the state of a disk
@@ -10,14 +11,13 @@ class State:
 
 class Disk:
     '''
-    Implements a disk (hard disk or solid state).  This handles reads and writes
-    of files, calculates time required, and keeps track of energy used.
+    Implements a disk (hard disk or solid state).  This handles reads and
+    writes of files, calculates time required, and keeps track of energy used.
     '''
 
     # The starting state for all the disks.  Not really relevant as long as
     # it's consistent across runs.
     DEFAULT_STATE = State.ON
-
 
     model = None
     spin_down_timeout = None    # Seconds
@@ -29,7 +29,6 @@ class Disk:
     # Dictionary to allow looking up compressed file sizes based on file names
     file_sizes = None
 
-
     def __init__(self, disk_model, timeout):
         self.model = disk_model
         self.spin_down_timeout = timeout
@@ -38,7 +37,6 @@ class Disk:
         self.last_activity_time = 0
         self.file_sizes = dict()
         self.state = self.DEFAULT_STATE
-
 
     def power_on(self):
         # Turns on the drive if it is off and returns the amount of time it
@@ -50,7 +48,6 @@ class Disk:
             elapsed_time = self.model.spin_up_time
         return elapsed_time
 
-
     def power_off(self):
         # Turns off the drive if it is on.  We are neglecting the time cost
         # of powering down because it would be unnecessarily complicated to
@@ -59,7 +56,6 @@ class Disk:
         if self.state == State.ON:
             self.state = State.OFF
             self.energy_used += self.model.spin_down_energy
-        
 
     def update_time(self, time):
         # Update the time
@@ -73,7 +69,7 @@ class Disk:
 
             # Check to see if we spun down since the last update
             if time_since_activity >= self.spin_down_timeout:
-                
+
                 # We've already accounted for the energy used before the last
                 # update.  We just need to consider the energy used between
                 # the last update and the timeout.
@@ -89,12 +85,11 @@ class Disk:
         # Update the energy used
         self.energy_used += active_time * self.model.idle_power
 
-
     def read(self, file_info):
-        total_time = 0;
+        total_time = 0
 
         # update_time must be called before any reads or writes to set the
-        # current time    
+        # current time
         self.last_activity_time = self.current_time
 
         # Turn on the drive if necessary
@@ -105,7 +100,7 @@ class Disk:
 
         # Calculate the time to read the file from disk
         read_time = self.model.seek_time + \
-                    (compressed_size / self.model.speed);
+            (compressed_size / self.model.speed)
         total_time += read_time
 
         # Calculate the energy used to read the file from disk
@@ -115,12 +110,11 @@ class Disk:
         # be tracked
         return total_time
 
-
     def write(self, file_info, compressed_size):
-        total_time = 0;
+        total_time = 0
 
         # update_time must be called before any reads or writes to set the
-        # current time    
+        # current time
         self.last_activity_time = self.current_time
 
         # Turn on the drive if necessary
@@ -131,7 +125,7 @@ class Disk:
 
         # Calculate the time to write the file to disk
         write_time = self.model.seek_time + \
-                     (compressed_size / self.model.speed)
+            (compressed_size / self.model.speed)
         total_time += write_time
 
         # Calculate the energy used to write the file to disk
@@ -141,10 +135,8 @@ class Disk:
         # be tracked
         return total_time
 
-
     def get_energy_usage(self):
         return self.energy_used
-
 
     def reset_energy_usage(self):
         # Reset the energy usage, stored times, and disk state
@@ -152,7 +144,6 @@ class Disk:
         self.current_time = 0
         self.last_activity_time = 0
         self.state = self.DEFAULT_STATE
-
 
     def get_capacity_usage(self):
         # Return the total amount of disk space used on this disk

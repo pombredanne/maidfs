@@ -2,12 +2,12 @@ from __future__ import division
 
 import units
 
+
 class ProcessorModel:
     '''
-    Describes the attributes of a processor.  This class should only have public
-    data members.
+    Describes the attributes of a processor.  This class should only have
+    public data members.
     '''
-
 
     idle_power = None
     active_power = None

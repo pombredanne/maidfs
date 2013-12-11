@@ -9,7 +9,6 @@ class DiskModel:
     data members.
     '''
 
-
     spin_up_time = None      # Seconds
     spin_up_energy = None    # Joules
     spin_down_energy = None  # Joules
@@ -19,7 +18,6 @@ class DiskModel:
     speed = None             # bytes/sec
     seek_time = None         # Seconds
     capacity = None          # bytes
-
 
     def __init__(self, spin_up_time, spin_up_energy, spin_down_energy,
                  idle_power, read_power, write_power, speed, seek_time,
@@ -61,4 +59,3 @@ siliconDriveA100ssd = DiskModel(
     200 * units.MiB,    # speed - from spec sheet
     0,      # seek time - from spec sheet
     128 * units.GB)     # capacity
-

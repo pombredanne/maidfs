@@ -1,5 +1,6 @@
 from __future__ import division
 
+
 class SelectionAlgorithm:
     '''
     Implements a selective compression algorithm.  This algorithm determines
@@ -8,7 +9,6 @@ class SelectionAlgorithm:
     This class is designed as a base class; actual selection algorithms should
     be implemented as child classes.
     '''
-
 
     def should_compress(self, file_info):
         # Returns a boolean indicating if the file should be compressed or not.
@@ -21,11 +21,11 @@ class NoCompressionSelectionAlgorithm(SelectionAlgorithm):
     the same as the base SelectionAlgorithm.
     '''
 
+
 class CompressEverythingSelectionAlgorithm(SelectionAlgorithm):
     '''
     The other most basic selection algorithm: compress everything.
     '''
-
 
     def should_compress(self, file_info):
         return True
@@ -39,18 +39,14 @@ class ThresholdCompressionAlgorithm(SelectionAlgorithm):
     file is compressed.
     '''
 
-
     threshold = None
     compression_alg = None
-
 
     def __init__(self, threshold, compression_alg):
         self.threshold = threshold
         self.compression_alg = compression_alg
 
-
     def should_compress(self, file_info):
-        compression_ratio = self.compression_alg.compression_ratio[ \
-            file_info.file_type]
-        return (compression_ratio <= self.threshold)
-
+        compression_ratio = \
+            self.compression_alg.compression_ratio[file_info.file_type]
+        return compression_ratio <= self.threshold

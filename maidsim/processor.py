@@ -1,5 +1,6 @@
 from __future__ import division
 
+
 class CompressionResult:
     '''
     Holds the results of a compression operation.  Only used as a return type.
@@ -15,17 +16,14 @@ class Processor:
     during idle mode and for compression and decompression operations.
     '''
 
-
     model = None
     energy_used = None
     current_time = None
-
 
     def __init__(self, processor_model):
         self.model = processor_model
         self.energy_used = 0
         self.current_time = 0
-
 
     def update_time(self, time):
         # Updates the current time for the processor and calculates idle
@@ -33,7 +31,6 @@ class Processor:
         time_since_last_update = time - self.current_time
         self.current_time = time
         self.energy_used += time_since_last_update * self.model.idle_power
-
 
     def compress(self, file_info, compression_alg):
         # Calculate time and energy required to compress the file.  Also
@@ -43,30 +40,24 @@ class Processor:
         # when testing compression speed.
         results = CompressionResult()
         results.execution_time = file_info.size / \
-                                 compression_alg.compression_speed[
-                                      file_info.file_type]
+            compression_alg.compression_speed[file_info.file_type]
         results.compressed_size = file_info.size * \
-                                  compression_alg.compression_ratio[
-                                      file_info.file_type]
+            compression_alg.compression_ratio[file_info.file_type]
         self.energy_used += results.execution_time * self.model.active_power
         return results
-
 
     def decompress(self, file_info, compression_alg):
         # Calculate time and energy required to decompress the file.
         # Note that we're currently ignoring processor speed and assuming that
         # the processor runs at the same speed as the processor that was used
         # when testing compression speed.
-        execution_time = file_info.size / compression_alg.decompression_speed[
-                                      file_info.file_type]
+        execution_time = file_info.size / \
+            compression_alg.decompression_speed[file_info.file_type]
         self.energy_used += execution_time * self.model.active_power
         return execution_time
-
 
     def get_energy_usage(self):
         return self.energy_used
 
-
     def reset_energy_usage(self):
         self.energy_used = 0
-

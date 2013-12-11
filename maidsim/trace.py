@@ -9,6 +9,7 @@ import units
 
 import json
 
+
 class Trace:
     '''
     Represents a file system trace containing read and write events to a large
@@ -23,7 +24,6 @@ class Trace:
     Access type (read or write)
     '''
 
-
     SPEEDUP_FACTOR = 100
 
     event_list = None
@@ -31,7 +31,6 @@ class Trace:
     first_event_timestamp = 0
     types = None
     error = False
-
 
     def __init__(self, file_name):
         # Open the file
@@ -71,8 +70,8 @@ class Trace:
         self.types["image/jpeg"] = FileType.IMAGE
 
         # This "mimetype" shows up for a few json files in the trace
-        self.types["ERROR: line 22: regexec error 17, (illegal byte sequence)"] = FileType.TEXT
-
+        byteseq = "ERROR: line 22: regexec error 17, (illegal byte sequence)"
+        self.types[byteseq] = FileType.TEXT
 
     def next_event(self):
         # Note that this function will throw an exception if there are no more
@@ -105,7 +104,7 @@ class Trace:
 
         # Convert mimetype to file type.  We only use the first part of the
         # mimetype (the part before the ";").
-	mimetype = event["mimetype"]
+        imetype = event["mimetype"]
         simple_type_index = mimetype.index(";")
         simple_type = mimetype[0:simple_type_index]
 
@@ -123,10 +122,8 @@ class Trace:
 
         return Event(time, file_info, access_type)
 
-
     def more_events(self):
         return len(self.event_list) > self.current_event
-
 
     def reset(self):
         # Start the trace again at the beginning
