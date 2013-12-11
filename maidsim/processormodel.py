@@ -24,5 +24,5 @@ class ProcessorModel:
 # the expectation that compression algorithms use mostly integer operations.
 xeonE52658v2 = ProcessorModel(
     14.4,   # idle power
-    66.1,   # active power
+    66.1 - 14.4,   # active power (idle power is already accounted for)
     2.4*units.GHz)  # speed

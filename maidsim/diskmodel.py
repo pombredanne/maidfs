@@ -42,9 +42,9 @@ savvio10k6hd = DiskModel(
     5 * 3.4,    # spin up energy - assuming this is negligible
     1 * 3.4,    # spin down energy - assuming this is negligible
     3.4,    # idle power - from spec sheet
-    7.33,   # read power - from spec sheet
-    7.33,   # write power - from spec sheet
-    164 * units.MiB,    # speed - from spec sheet
+    7.33 - 3.4,   # read power - from spec sheet (idle power is already accounted for)
+    7.33 - 3.4,   # write power - from spec sheet (idle power is already accounted for)
+    40 * units.MiB,    # speed - from spec sheet
     2.9 * units.ms,     # seek time - from spec sheet
     600 * units.GB)     # capacity
 
@@ -56,8 +56,8 @@ siliconDriveA100ssd = DiskModel(
     0.1 * 0.5,  # spin up energy - assuming this is negligible
     0,      # spin down energy - assuming this is negligible
     0.5,    # idle power - from spec sheet
-    0.9,    # read power - from spec sheet
-    0.9,    # write power - from spec sheet
+    0.9 - 0.5,    # read power - from spec sheet (idle power is already accounted for)
+    0.9 - 0.5,    # write power - from spec sheet (idle power is already accounted for)
     200 * units.MiB,    # speed - from spec sheet
     0,      # seek time - from spec sheet
     128 * units.GB)     # capacity

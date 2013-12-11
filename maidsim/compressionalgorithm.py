@@ -42,50 +42,125 @@ sevenz_alg = CompressionAlgorithm("7z",
 # Some hypothetical algorithms
 faster1_alg = CompressionAlgorithm("faster1",
         map(lambda x: x*1.5, gzip_alg.compression_speed),
-        [0.377656117, 0.999549344, 0.992642428, 0.990812813, 0.977854524],
+        gzip_alg.compression_ratio,
         map(lambda x: x*1.5, gzip_alg.decompression_speed))
 
 faster2_alg = CompressionAlgorithm("faster2",
         map(lambda x: x*2, gzip_alg.compression_speed),
-        [0.377656117, 0.999549344, 0.992642428, 0.990812813, 0.977854524],
+        gzip_alg.compression_ratio,
         map(lambda x: x*2, gzip_alg.decompression_speed))
 
 faster3_alg = CompressionAlgorithm("faster3",
         map(lambda x: x*3, gzip_alg.compression_speed),
-        [0.377656117, 0.999549344, 0.992642428, 0.990812813, 0.977854524],
+        gzip_alg.compression_ratio,
         map(lambda x: x*3, gzip_alg.decompression_speed))
 
 faster4_alg = CompressionAlgorithm("faster4",
         map(lambda x: x*4, gzip_alg.compression_speed),
-        [0.377656117, 0.999549344, 0.992642428, 0.990812813, 0.977854524],
+        gzip_alg.compression_ratio,
         map(lambda x: x*4, gzip_alg.decompression_speed))
 
 faster5_alg = CompressionAlgorithm("faster5",
         map(lambda x: x*5, gzip_alg.compression_speed),
-        [0.377656117, 0.999549344, 0.992642428, 0.990812813, 0.977854524],
+        gzip_alg.compression_ratio,
         map(lambda x: x*5, gzip_alg.decompression_speed))
 
+faster6_alg = CompressionAlgorithm("faster6",
+        map(lambda x: x*6, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*6, gzip_alg.decompression_speed))
+
+faster7_alg = CompressionAlgorithm("faster7",
+        map(lambda x: x*7, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*7, gzip_alg.decompression_speed))
+
+faster8_alg = CompressionAlgorithm("faster8",
+        map(lambda x: x*8, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*8, gzip_alg.decompression_speed))
+
+faster9_alg = CompressionAlgorithm("faster9",
+        map(lambda x: x*9, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*9, gzip_alg.decompression_speed))
+
+faster10_alg = CompressionAlgorithm("faster10",
+        map(lambda x: x*10, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*10, gzip_alg.decompression_speed))
+
+faster11_alg = CompressionAlgorithm("faster11",
+        map(lambda x: x*11, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*11, gzip_alg.decompression_speed))
+
+faster12_alg = CompressionAlgorithm("faster12",
+        map(lambda x: x*12, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*12, gzip_alg.decompression_speed))
+
+faster13_alg = CompressionAlgorithm("faster13",
+        map(lambda x: x*13, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*13, gzip_alg.decompression_speed))
+
+faster14_alg = CompressionAlgorithm("faster14",
+        map(lambda x: x*14, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*14, gzip_alg.decompression_speed))
+
+faster15_alg = CompressionAlgorithm("faster15",
+        map(lambda x: x*15, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*15, gzip_alg.decompression_speed))
+
+faster16_alg = CompressionAlgorithm("faster16",
+        map(lambda x: x*16, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*16, gzip_alg.decompression_speed))
+
+faster17_alg = CompressionAlgorithm("faster17",
+        map(lambda x: x*17, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*17, gzip_alg.decompression_speed))
+
+faster18_alg = CompressionAlgorithm("faster18",
+        map(lambda x: x*18, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*18, gzip_alg.decompression_speed))
+
+faster19_alg = CompressionAlgorithm("faster19",
+        map(lambda x: x*19, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*19, gzip_alg.decompression_speed))
+
+faster20_alg = CompressionAlgorithm("faster20",
+        map(lambda x: x*20, gzip_alg.compression_speed),
+        gzip_alg.compression_ratio,
+        map(lambda x: x*20, gzip_alg.decompression_speed))
+
 greater1_alg = CompressionAlgorithm("greater1",
-        [10423524.87, 30876888.42, 23397576.69, 24574384.64, 26892402.2],
+        gzip_alg.compression_speed,
         map(lambda x: x/1.5, gzip_alg.compression_ratio),
-        [53887065.59, 95981239.82, 36033727.06, 92784830.08, 50620584.68])
+        gzip_alg.decompression_speed)
 
 greater2_alg = CompressionAlgorithm("greater2",
-        [10423524.87, 30876888.42, 23397576.69, 24574384.64, 26892402.2],
+        gzip_alg.compression_speed,
         map(lambda x: x/2, gzip_alg.compression_ratio),
-        [53887065.59, 95981239.82, 36033727.06, 92784830.08, 50620584.68])
+        gzip_alg.decompression_speed)
 
 greater3_alg = CompressionAlgorithm("greater3",
-        [10423524.87, 30876888.42, 23397576.69, 24574384.64, 26892402.2],
+        gzip_alg.compression_speed,
         map(lambda x: x/3, gzip_alg.compression_ratio),
-        [53887065.59, 95981239.82, 36033727.06, 92784830.08, 50620584.68])
+        gzip_alg.decompression_speed)
 
 greater4_alg = CompressionAlgorithm("greater4",
-        [10423524.87, 30876888.42, 23397576.69, 24574384.64, 26892402.2],
+        gzip_alg.compression_speed,
         map(lambda x: x/4, gzip_alg.compression_ratio),
-        [53887065.59, 95981239.82, 36033727.06, 92784830.08, 50620584.68])
+        gzip_alg.decompression_speed)
 
 greater5_alg = CompressionAlgorithm("greater5",
-        [10423524.87, 30876888.42, 23397576.69, 24574384.64, 26892402.2],
+        gzip_alg.compression_speed,
         map(lambda x: x/5, gzip_alg.compression_ratio),
-        [53887065.59, 95981239.82, 36033727.06, 92784830.08, 50620584.68])
+        gzip_alg.decompression_speed)

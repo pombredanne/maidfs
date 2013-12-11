@@ -44,7 +44,7 @@ def main():
     parser.add_argument("-c", "--compression_alg",
                         help="compression algorithm to use in the simulation (g = gzip, b = bzip2, 7 = 7z, fx = gzip x times faster, gx = gzip with x times better compression)",
                         default=DEFAULT_COMPRESSION_ALG,
-                        choices=["g", "b", "7", "f1", "f2", "f3", "f4", "f5", "g1", "g2", "g3", "g4", "g5"])
+                        choices=["g", "b", "7", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "g1", "g2", "g3", "g4", "g5"])
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-n", "--none",
@@ -87,6 +87,36 @@ def main():
         compression_alg = faster4_alg
     elif args.compression_alg == "f5":
         compression_alg = faster5_alg
+    elif args.compression_alg == "f6":
+        compression_alg = faster6_alg
+    elif args.compression_alg == "f7":
+        compression_alg = faster7_alg
+    elif args.compression_alg == "f8":
+        compression_alg = faster8_alg
+    elif args.compression_alg == "f9":
+        compression_alg = faster9_alg
+    elif args.compression_alg == "f10":
+        compression_alg = faster10_alg
+    elif args.compression_alg == "f11":
+        compression_alg = faster11_alg
+    elif args.compression_alg == "f12":
+        compression_alg = faster12_alg
+    elif args.compression_alg == "f13":
+        compression_alg = faster13_alg
+    elif args.compression_alg == "f14":
+        compression_alg = faster14_alg
+    elif args.compression_alg == "f15":
+        compression_alg = faster15_alg
+    elif args.compression_alg == "f16":
+        compression_alg = faster16_alg
+    elif args.compression_alg == "f17":
+        compression_alg = faster17_alg
+    elif args.compression_alg == "f18":
+        compression_alg = faster18_alg
+    elif args.compression_alg == "f19":
+        compression_alg = faster19_alg
+    elif args.compression_alg == "f20":
+        compression_alg = faster20_alg
     elif args.compression_alg == "g1":
         compression_alg = greater1_alg
     elif args.compression_alg == "g2":
