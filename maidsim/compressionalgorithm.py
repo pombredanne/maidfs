@@ -39,6 +39,11 @@ sevenz_alg = CompressionAlgorithm("7z",
         [0.302648571, 1.009040826, 0.99245957, 0.990712745, 0.975147138],
         [39099319.53, 13809872.84, 13291898.01, 13718395.73, 13826212.51])
 
+lzop_alg = CompressionAlgorithm("lzop",
+        [133622036.1, 259502891.8, 217623789.8, 229771829, 233795128.9],
+        [0.613333536, 1.000015532, 0.99447258, 0.99498836, 0.988155026],
+        [268974410.2, 1089490417, 848173708.1, 791794805.8, 832463808.8])
+
 # Some hypothetical algorithms
 faster1_alg = CompressionAlgorithm("faster1",
         map(lambda x: x*1.5, gzip_alg.compression_speed),
