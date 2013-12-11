@@ -42,9 +42,9 @@ def main():
                         default=DEFAULT_SPIN_DOWN_TIMEOUT,
                         metavar="SPIN_DOWN_TIMEOUT")
     parser.add_argument("-c", "--compression_alg",
-                        help="compression algorithm to use in the simulation (g = gzip, b = bzip2, 7 = 7z, fx = gzip x times faster, gx = gzip with x times better compression)",
+                        help="compression algorithm to use in the simulation (g = gzip, b = bzip2, 7 = 7z, l, = lzop, fx = gzip x times faster, gx = gzip with x times better compression)",
                         default=DEFAULT_COMPRESSION_ALG,
-                        choices=["g", "b", "7", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "g1", "g2", "g3", "g4", "g5"])
+                        choices=["g", "b", "7", "l", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "g1", "g2", "g3", "g4", "g5"])
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-n", "--none",
@@ -77,6 +77,8 @@ def main():
         compression_alg = bzip2_alg
     elif args.compression_alg == "7":
         compression_alg = sevenz_alg
+    elif args.compression_alg == "l":
+        compression_alg = lzop_alg
     elif args.compression_alg == "f1":
         compression_alg = faster1_alg
     elif args.compression_alg == "f2":
