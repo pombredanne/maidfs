@@ -2,6 +2,7 @@
 
 # Generate 240MB text file
 cp /usr/share/dict/words ./240MB.txt
+chmod 644 ./240MB.txt
 for i in `seq 1 100`; do
     cat /usr/share/dict/words >> ./240MB.txt
 done
