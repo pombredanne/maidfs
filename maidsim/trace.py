@@ -1,3 +1,5 @@
+from __future__ import division
+
 from event import Event
 from event import EventType
 from fileinfo import FileInfo

@@ -1,3 +1,5 @@
+from __future__ import division
+
 class CompressionResult:
     '''
     Holds the results of a compression operation.  Only used as a return type.

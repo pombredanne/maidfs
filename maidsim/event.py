@@ -1,3 +1,5 @@
+from __future__ import division
+
 class EventType:
     '''
     Describes the type (read or write) of a file system event.

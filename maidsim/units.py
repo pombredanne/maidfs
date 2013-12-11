@@ -1,3 +1,5 @@
+from __future__ import division
+
 """Typical system-level units of both binary and SI prefix."""
 
 kibibyte = 1 << 10

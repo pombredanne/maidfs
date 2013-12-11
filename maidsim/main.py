@@ -1,5 +1,6 @@
 #!/usr/bin/python2
 
+from __future__ import division
 
 from compressionalgorithm import *
 from diskarray import DiskArray

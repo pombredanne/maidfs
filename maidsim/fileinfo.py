@@ -1,3 +1,5 @@
+from __future__ import division
+
 class FileInfo:
     '''
     Describes the basic attributes of a file.

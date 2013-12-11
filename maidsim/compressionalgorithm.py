@@ -1,3 +1,5 @@
+from __future__ import division
+
 class CompressionAlgorithm:
     '''
     Describes a compression algorithm.  This file should only have public data

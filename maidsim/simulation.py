@@ -1,3 +1,5 @@
+from __future__ import division
+
 from event import EventType
 from processor import CompressionResult
 from processor import Processor

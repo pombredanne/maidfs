@@ -1,3 +1,5 @@
+from __future__ import division
+
 class State:
     '''
     Enum defining the state of a disk

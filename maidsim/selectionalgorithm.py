@@ -1,3 +1,5 @@
+from __future__ import division
+
 class SelectionAlgorithm:
     '''
     Implements a selective compression algorithm.  This algorithm determines

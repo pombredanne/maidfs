@@ -1,3 +1,5 @@
+from __future__ import division
+
 '''
 Enum containing all the file types we are considering
 '''
