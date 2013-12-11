@@ -73,7 +73,7 @@ def main():
     if args.compression_alg == "g":
         compression_alg = gzip_alg
     elif args.compression_alg == "b":
-        compression_alg = bzip_alg
+        compression_alg = bzip2_alg
     elif args.compression_alg == "7":
         compression_alg = sevenz_alg
     elif args.compression_alg == "f1":
