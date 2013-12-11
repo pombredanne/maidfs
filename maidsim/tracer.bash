@@ -81,5 +81,17 @@ do
     ${PYTHON} main.py -f $tracefilepath -c f19 -a  -o results/trace.txt
     ${PYTHON} main.py -f $tracefilepath -c f20 -a  -o results/trace.txt
 
-    echo
+    echo LZO tests..
+    # LZO tests (compress text, compress text and images, compress all)
+    ${PYTHON} main.py -f $tracefilepath -c l -r 0.7   -o results/trace.txt
+    ${PYTHON} main.py -f $tracefilepath -c l -r 1.0   -o results/trace.txt
+    ${PYTHON} main.py -f $tracefilepath -c l -a       -o results/trace.txt
+
+   echo Snappy tests..
+   # Snappy tests (compress text, compress text and images, compress all)
+   ${PYTHON} main.py -f $tracefilepath -c s -r 0.7   -o results/trace.txt
+   ${PYTHON} main.py -f $tracefilepath -c s -r 1.0   -o results/trace.txt
+   ${PYTHON} main.py -f $tracefilepath -c s -a       -o results/trace.txt
+
+   echo
 done
