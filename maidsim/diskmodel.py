@@ -44,8 +44,8 @@ savvio10k6hd = DiskModel(
     3.4,    # idle power - from spec sheet
     7.33 - 3.4,   # read power - from spec sheet (idle power is already accounted for)
     7.33 - 3.4,   # write power - from spec sheet (idle power is already accounted for)
-    40 * units.MiB,    # speed - from spec sheet
-    2.9 * units.ms,     # seek time - from spec sheet
+    40 * units.MiB,    # speed - based on test results
+    0.0,     # seek time (ignored because it's the same with and without compression)
     600 * units.GB)     # capacity
 
 
