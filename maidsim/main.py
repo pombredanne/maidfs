@@ -128,12 +128,12 @@ def main():
     elif args.compression_alg == "g5":
         compression_alg = greater5_alg
         
-    compression_threshold = 0
     if args.none:
         selection_alg = NoCompressionSelectionAlgorithm()
-        compression_threshold = 999    # stand in for infinity
+        compression_threshold = 0
     elif args.all:
         selection_alg = CompressEverythingSelectionAlgorithm()
+        compression_threshold = float("inf")
     else:
         compression_threshold = args.compression_ratio
         selection_alg = ThresholdCompressionAlgorithm(
