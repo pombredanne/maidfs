@@ -75,6 +75,8 @@ def main():
         compression_alg = sevenz_alg
     elif args.compression_alg == "s":
         compression_alg = snappy_alg
+    elif args.compression_alg == "l":
+        compression_alg = lzop_alg
     elif args.compression_alg == "f1":
         compression_alg = faster1_alg
     elif args.compression_alg == "f2":
