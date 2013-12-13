@@ -55,6 +55,7 @@ class Trace:
         self.types["application/xml"] = FileType.TEXT
         self.types["application/x-character-device"] = FileType.BINARY
         self.types["application/octet-stream"] = FileType.BINARY
+        self.types["application/x-shockwave-flash"] = FileType.BINARY
         self.types["text/plain"] = FileType.TEXT
         self.types["application/x-directory"] = FileType.BINARY
         self.types["text/x-shellscript"] = FileType.TEXT
@@ -68,6 +69,7 @@ class Trace:
         self.types["text/x-c++"] = FileType.TEXT
         self.types["image/gif"] = FileType.IMAGE
         self.types["image/jpeg"] = FileType.IMAGE
+        self.types["image/tiff"] = FileType.IMAGE
 
         # This "mimetype" shows up for a few json files in the trace
         byteseq = "ERROR: line 22: regexec error 17, (illegal byte sequence)"
