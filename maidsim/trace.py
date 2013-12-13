@@ -106,9 +106,8 @@ class Trace:
 
         # Convert mimetype to file type.  We only use the first part of the
         # mimetype (the part before the ";").
-        imetype = event["mimetype"]
-        simple_type_index = mimetype.index(";")
-        simple_type = mimetype[0:simple_type_index]
+        mimetype = event["mimetype"]
+        simple_type = mimetype.split(';')[0]
 
         # If a mimetype hasn't been assigned to a file type yet, print a
         # message instead of throwing an exception.  This allows us to detect
