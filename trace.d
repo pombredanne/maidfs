@@ -23,11 +23,11 @@ syscall::open*:return
 syscall::read*:entry
 /path[pid,arg0] != ""/
 {
-    printf("read\t%s\t%u\n", path[pid,arg0], timestamp);
+    printf("read\t%s\t%u\t%u\n", path[pid,arg0], timestamp, arg2);
 }
 
 syscall::write*:entry
 /path[pid,arg0] != ""/
 {
-    printf("write\t%s\t%u\n", path[pid,arg0], timestamp);
+    printf("write\t%s\t%u\t%u\n", path[pid,arg0], timestamp, arg2);
 }
